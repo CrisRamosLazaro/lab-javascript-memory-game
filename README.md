@@ -159,9 +159,11 @@ class MemoryGame {
 
 <br>
 
-#### The layout and the logic files
+### Iteration 3: DOM & Interactions
 
-When the logic is down, you will move forward to `src/index.js` and work on the DOM interactions. What do we consider as interaction is what happens when the user clicks on the card:
+Once you have completed the implementation of the memory game logic or functionality, you will move forward to `src/index.js` and work on the DOM interactions. 
+
+What do we consider as interaction is what happens when the user clicks on the card:
 
 - how do we get the movement/flipping sides effect,
 

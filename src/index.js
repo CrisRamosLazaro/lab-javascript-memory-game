@@ -25,35 +25,67 @@ const cards = [
   { name: 'thor', img: 'thor.jpg' }
 ];
 
-const memoryGame = new MemoryGame(cards);
+const memoryGame = new MemoryGame(cards)
+const victoryBox = document.getElementById("victory-box")
+const victoryMsg = document.getElementById("victory")
 
+victoryBox.style.display = "none"
+victoryMsg.style.display = "none"
 
 window.addEventListener('load', () => {
+
+  memoryGame.shuffleCards()
+
   let html = '';
+
   memoryGame.cards.forEach((pic) => {
     html += `
       <div class="card" data-card-name="${pic.name}">
         <div class="back" name="${pic.img}"></div>
         <div class="front" style="background: url(img/${pic.img}) no-repeat"></div>
       </div>
-    `;
-  });
+    `
+  })
 
-  memoryGame.shuffleCards();
+  document.querySelector('#memory-board').innerHTML = html
 
-  // Add all the divs to the HTML
-
-
-  document.querySelector('#memory-board').innerHTML = html;
-
-  // Bind the click event of each element to a function
   document.querySelectorAll('.card').forEach((card) => {
-    card.addEventListener('click', () => {
-      // TODO: write some code here
-      memoryGame.checkIfPair(card.dataset.cardName)
-      console.log(`Card clicked: ${card}`);
-      memoryGame.checkIfFinished();
+    card.classList.add('turned')
+    setTimeout(() => {
+      card.classList.remove('turned')
 
-    });
-  });
-});
+    }, 9000)
+
+    card.addEventListener('click', () => {
+
+      card.classList.add('turned')
+      memoryGame.pickedCards.push(card)
+
+      if (memoryGame.pickedCards.length === 2) {
+        const card1 = memoryGame.pickedCards[0].getAttribute('data-card-name')
+        const card2 = memoryGame.pickedCards[1].getAttribute('data-card-name')
+
+        if (!memoryGame.checkIfPair(card1, card2)) {
+          setTimeout(() => {
+            memoryGame.pickedCards.forEach((card) => card.classList.remove('turned'))
+            memoryGame.pickedCards = []
+          }, 1000)
+        } else {
+          document.getElementById('pairs-guessed').innerHTML = memoryGame.pairsGuessed
+          memoryGame.pickedCards = []
+        }
+      }
+
+      document.getElementById('pairs-clicked').innerHTML = memoryGame.pairsClicked
+
+      if (memoryGame.checkIfFinished()) {
+        victoryBox.style.display = "flex"
+        victoryMsg.style.display = "block"
+        setInterval(() => {
+          memoryGame.changeVictoryMsg(victoryBox, victoryMsg)
+        }, 300)
+      }
+
+    })
+  })
+})

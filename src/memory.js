@@ -1,44 +1,69 @@
 class MemoryGame {
   constructor(cards) {
-    this.cards = cards;
+    this.cards = cards
     this.pickedCards = []
     this.pairsClicked = 0
     this.pairsGuessed = 0
+
   }
 
   shuffleCards() {
+    const shuffledCards = []
 
-    if (this.cards = []) {
+    if (!this.cards) {
       return undefined
-    } else {
-
-      const cardsShuffled = this.cards.map((card, i) => {
-        let randomIndex = Math.floor(Math.random() * (i + 1));
-        [this.cards[randomIndex], this.cards[i]] = [this.cards[i], this.cards[randomIndex]]
-      })
-
-      return cardsShuffled
     }
+
+    while (this.cards.length > 0) {
+      const i = Math.floor(Math.random() * this.cards.length)
+      const card = this.cards.splice(i, 1)
+      shuffledCards.push(card[0])
+    }
+
+    this.cards = shuffledCards
+    return shuffledCards
   }
 
   checkIfPair(card1, card2) {
-
     this.pairsClicked++
-
     if (card1 === card2) {
       this.pairsGuessed++
       return true
-    } else {
-      return false
     }
+    return false
   }
 
   checkIfFinished() {
-
-    if (this.pairsGuessed === 12) {
-      return true
-    } else {
+    if (this.pairsClicked === 0) {
       return false
     }
+
+    if (this.pairsGuessed === this.cards.length / 2) {
+      return true
+    }
+
+    return false
   }
+
+  animateVictory(a) {
+    const r = Math.floor(Math.random() * 256)
+    const g = Math.floor(Math.random() * 256)
+    const b = Math.floor(Math.random() * 256)
+    return `rgba(${r}, ${g}, ${b}, ${a})`
+  }
+
+  changeBgColor(box) {
+    box.style.backgroundColor = this.animateVictory(0.4)
+  }
+
+  changeTextColor(text) {
+    text.style.color = this.animateVictory(0.9)
+  }
+
+  changeVictoryMsg(box, text) {
+    this.changeBgColor(box)
+    this.changeTextColor(text)
+  }
+
 }
+
