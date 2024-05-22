@@ -4,7 +4,7 @@ class MemoryGame {
     this.pickedCards = []
     this.pairsClicked = 0
     this.pairsGuessed = 0
-
+    this.countdown = 5
   }
 
   shuffleCards() {
@@ -65,5 +65,19 @@ class MemoryGame {
     this.changeTextColor(text)
   }
 
+  changeCountdownText(text) {
+
+    if (text.innerHTML == "READY") {
+      text.innerHTML = "SET"
+    } else if (text.innerHTML == "SET") {
+      text.innerHTML = "GO"
+    } else if (text.innerHTML == "GO") {
+      text.innerHTML = this.countdown
+      this.countdownStarted = true
+    } else if (this.countdownStarted && this.countdown > 0) {
+      this.countdown--
+      text.innerHTML = this.countdown
+    }
+  }
 }
 

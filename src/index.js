@@ -26,6 +26,9 @@ const cards = [
 ];
 
 const memoryGame = new MemoryGame(cards)
+
+const countdownText = document.getElementById("countdown")
+const lastChanceText = document.getElementById("last-chance")
 const victoryBox = document.getElementById("victory-box")
 const victoryMsg = document.getElementById("victory")
 
@@ -48,6 +51,24 @@ window.addEventListener('load', () => {
   })
 
   document.querySelector('#memory-board').innerHTML = html
+
+  setInterval(() => {
+    memoryGame.changeCountdownText(countdownText)
+  }, 1000)
+
+  setTimeout(() => {
+    lastChanceText.style.display = "block"
+  }, 3000)
+
+  setTimeout(() => {
+    countdownText.style.opacity = "0"
+    lastChanceText.style.opacity = "0"
+
+    setTimeout(() => {
+      countdownText.style.display = "none"
+      lastChanceText.style.display = "none"
+    }, 1000)
+  }, 9000)
 
   document.querySelectorAll('.card').forEach((card) => {
     card.classList.add('turned')
