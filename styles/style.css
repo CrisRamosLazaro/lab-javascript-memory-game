@@ -58,18 +58,28 @@ body {
 }
 
 .info {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  width: 100vw;
+  box-sizing: border-box;
+  grid-auto-flow: column;
   justify-content: center;
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
+  align-items: center;
+}
+
+.countdown-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: span 1;
+  min-height: 180px;
+  max-height: 180px;
+  min-width: 40vw;
 }
 
 #countdown {
-  font-size: 200px;
+  font-size: 12.5vw;
+  padding-left: 25vw;
   margin: 0;
   color: rgba(0, 0, 61, 0.9);
   text-shadow: 0px 0px 20px #969696;
@@ -80,12 +90,12 @@ body {
   top: 15%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 50px;
+  font-size: 2vw;
   margin: 0;
-  margin-left: 2%;
+  margin-left: 1%;
   color: rgba(0, 255, 234, 0.9);
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black, 0px 0px 20px #969696;
-  transform: rotate(15deg);
+  transform: rotate(12deg);
   z-index: 2;
   display: none;
 }
@@ -96,13 +106,15 @@ body {
 }
 
 #score {
+  grid-column: span 2;
   background-color: rgba(215, 44, 44, 0.8);
   border-radius: 8px;
-  font-size: 30px;
+  font-size: 8vw;
   font-family: Arial;
   width: 200px;
-  padding: 20px;
-  margin-left: 70%;
+  min-height: 50px;
+  margin-left: 50px;
+  padding: 2vw;
 }
 
 h1 {
